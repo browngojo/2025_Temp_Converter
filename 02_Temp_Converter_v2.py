@@ -115,7 +115,7 @@ class Converter():
 
         # Enable History export button as soon as we have a valid calculation
         self.to_history_button.config(state=NORMAL)
-        
+
         self.answer_error.config(text=answer_statement)
         self.all_calculations_list.append(answer_statement)
         print(self.all_calculations_list)
