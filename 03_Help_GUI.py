@@ -1,4 +1,6 @@
 from tkinter import *
+from functools import partial # To prevent unwanted windows
+
 
 class Converter:
     """
@@ -22,15 +24,26 @@ class Converter:
         self.to_help_button.grid(row=1, padx=5, pady=5)
 
     def to_help(self):
-        DisplayHelp()
+        DisplayHelp(self)
 
 class DisplayHelp:
 
-    def __init__(self):
+    def __init__(self, partner):
 
         # Setup dialogue box and background colour
         background = "#ffe6cc"
         self.help_box = Toplevel()
+
+        # Disable help button
+        partner.to_help_button.config(state=DISABLED)
+
+        # If users press cross at top, closes help and 'releases' help button
+        self.help_box.protocol('WM_DELETE_WINDOW',
+                               partial(self.close_help, partner))
+
+        self.help_frame = Frame(self.help_box, width=300,
+                                height=200)
+        self.help_frame.grid()
 
         self.help_frame = Frame(self.help_box,
                                 width=300,
@@ -39,21 +52,23 @@ class DisplayHelp:
         self.help_frame.grid()
 
         self.help_heading_label = Label(self.help_frame,
-                                    text="Help / Info",
-                                    font=("Arial", "14", "bold"))
+                                        text="Help / Info",
+                                        font=("Arial", "14", "bold"))
         self.help_heading_label.grid(row=0)
 
         help_text = "To use the program, simply enter the temperature " \
                     "you wish to convert and then choose to convert to either " \
                     "degrees Celsius (Centigrade) or Fahrenheit.. \n\n"
 
-
         self.help_text_label = Label(self.help_frame,
-                                     text=help_text)
+                                     text=help_text, wraplength=350,
+                                     justify="left")
+        self.help_text_label.grid(row=1, padx=10)
+
         self.dismiss_button = Button(self.help_frame,
                                      font=("Arial", "12", "bold"),
                                      text="Dismiss", bg="#CC8800",
-                                     fg="#FFFFFF", command=self.close_help)
+                                     fg="#FFFFFF", command=partial(self.close_help, partner))
         self.dismiss_button.grid(row=2, padx=10, pady=10)
 
         # List and loop to set background colour on
@@ -64,7 +79,12 @@ class DisplayHelp:
         for item in recolour_list:
             item.config(bg=background)
 
-    def close_help(self):
+    def close_help(self, partner):
+        """
+        Closes help dialogue box (and enables help buttton)
+        """
+        # Put help button back to normal...
+        partner.to_help_button.config(state=NORMAL)
         self.help_box.destroy()
 
 
