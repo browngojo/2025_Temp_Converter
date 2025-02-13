@@ -81,7 +81,7 @@ class DisplayHelp:
 
     def close_help(self, partner):
         """
-        Closes help dialogue box (and enables help buttton)
+        Closes help dialogue box (and enables help buttton
         """
         # Put help button back to normal...
         partner.to_help_button.config(state=NORMAL)

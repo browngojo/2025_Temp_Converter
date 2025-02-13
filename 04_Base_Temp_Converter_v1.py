@@ -64,16 +64,14 @@ class Converter():
                                       width=12, command=item[2])
             self.make_button.grid(row=item[3], column=item[4], padx=5, pady=5)
 
-            # fRetrieve to help button
-            self.to_help_button = self.button_ref_list[2]
-
             self.button_ref_list.append(self.make_button)
+
+        # Retrieve to help button
+        self.to_help_button = self.button_ref_list[2]
 
         # Retrieve 'history / export' button and disable it at the start
         self.to_history_button = self.button_ref_list[3]
         self.to_history_button.config(state=DISABLED)
-
-
 
     def check_temp(self, min_temp):
         """
@@ -126,7 +124,6 @@ class Converter():
         self.answer_error.config(text=answer_statement)
         self.all_calculations_list.append(answer_statement)
         print(self.all_calculations_list)
-
 
     def to_help(self):
         DisplayHelp(self)
@@ -187,12 +184,11 @@ class DisplayHelp:
 
     def close_help(self, partner):
         """
-        Closes help dialogue box (and enables help buttton)
+        Closes help dialogue box (and enables help buttton
         """
         # Put help button back to normal...
         partner.to_help_button.config(state=NORMAL)
         self.help_box.destroy()
-
 
 
 # Main Routine 
