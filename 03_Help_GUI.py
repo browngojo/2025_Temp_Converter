@@ -45,11 +45,6 @@ class DisplayHelp:
                                 height=200)
         self.help_frame.grid()
 
-        self.help_frame = Frame(self.help_box,
-                                width=300,
-                                height=200,
-                                )
-        self.help_frame.grid()
 
         self.help_heading_label = Label(self.help_frame,
                                         text="Help / Info",

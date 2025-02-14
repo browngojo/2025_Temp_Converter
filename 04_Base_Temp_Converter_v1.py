@@ -148,12 +148,6 @@ class DisplayHelp:
                                 height=200)
         self.help_frame.grid()
 
-        self.help_frame = Frame(self.help_box,
-                                width=300,
-                                height=200,
-                                )
-        self.help_frame.grid()
-
         self.help_heading_label = Label(self.help_frame,
                                         text="Help / Info",
                                         font=("Arial", "14", "bold"))
@@ -161,7 +155,11 @@ class DisplayHelp:
 
         help_text = "To use the program, simply enter the temperature " \
                     "you wish to convert and then choose to convert to either " \
-                    "degrees Celsius (Centigrade) or Fahrenheit.. \n\n"
+                    "degrees Celsius (Centigrade) or Fahrenheit.. \n\n Note that " \
+                    "-273 degrees C (-459 F) is absolute zero (the coldest possible temperature). " \
+                    "If you try to convert a temperature that is less then -273 degrees C, " \
+                    "you get an error meesage. \n\n To see your calculation history and export " \
+                    "it to a text file, please click the 'History / Export' button."
 
         self.help_text_label = Label(self.help_frame,
                                      text=help_text, wraplength=350,
