@@ -11,7 +11,13 @@ class Converter:
         """
         Temperature Converter GUI
         """
-        self.all_calculations_list = ['Converting 10.0°F to -12°C', 'Converting 20.0°F to -7°C', 'Converting 30.0°F to -1°C', 'Converting 40.0°F to 4°C', 'Converting 50.0°F to 10°C']
+        self.all_calculations_list = ['Converting 10.0°F to -12°C', 'Converting 20.0°F to -7°C',
+                    'Converting 30.0°F to -1°C', 'Converting 40.0°F to 4°C',
+                    'Converting 50.0°F to 10°C', 'Converting 60.0°F to 16°C']
+
+        #self.all_calculations_list = ['Converting 10.0°F to -12°C', 'Converting 20.0°F to -7°C',
+                                      #'Converting 30.0°F to -1°C', 'Converting 40.0°F to 4°C',
+                                      #'Converting 50.0°F to 10°C']
 
         self.temp_frame = Frame(padx=10, pady=10)
         self.temp_frame.grid()
@@ -63,6 +69,24 @@ class HistoryExport:
         recent_intro_text = (f"Below are {calc_amount} calculations "
                              f"(to the nearest degree). ")
 
+        # Create string from calculations list (newest calculations first)
+        newest_first_string = ""
+        newest_first_list = list(reversed(calculations))
+
+        if len(newest_first_list) <= c.MAX_CALCS:
+
+            for item in newest_first_list[:-1]:
+                newest_first_string += item + "\n"
+
+            newest_first_string += newest_first_list[-1]
+
+        else:
+            for item in newest_first_list[:c.MAX_CALCS-1]:
+                newest_first_string += item + "\n"
+
+            newest_first_string += newest_first_list[c.MAX_CALCS-1]
+
+
         export_instruction_txt = "Please push <Export> to save your calculations in file. If the filename already exists, it will be called temp_conversion_yyyy_mm_dd.txt"
 
         calculations = ""
@@ -71,7 +95,7 @@ class HistoryExport:
         history_labels_list = [
             ["History / Export", ("Arial", "16", "bold"), None],
             [recent_intro_text, ("Arial", "11"), None],
-            ["calculation list", ("Arial", "14"), calc_back],
+            [newest_first_string, ("Arial", "14"), calc_back],
             [export_instruction_txt, ("Arial", "14"), None]
         ]
 
